@@ -12,4 +12,8 @@ int set_permissions(const char *path, int permissions);
 // 设置文件所有者
 int set_owner(const char *path, uint32_t uid, uint32_t gid);
 
+int set_user_id(uint32_t user_id);
+int get_user_id();
+
+
 #endif // SECURITY_H

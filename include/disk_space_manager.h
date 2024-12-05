@@ -2,20 +2,20 @@
 #define DISK_SPACE_MANAGER_H
 
 #include <stddef.h>
+#include <cstdint>
 
-// 初始化磁盘空间管理器
-void disk_space_manager_init(size_t total_blocks, size_t block_size);
+typedef struct {
+    uint8_t *bitmap;    // 位图，标记每个块的使用情况
+    uint32_t total_blocks; // 总块数
+    uint32_t free_blocks;  // 空闲块数
+} DiskSpaceManager;
 
-// 分配一个空闲块
 int allocate_block();
+int free_block(uint32_t block_id);
 
-// 释放一个块
-int free_block(int block_number);
+int init_disk_space_manager(uint32_t total_blocks);
 
-// 读取指定块数据
-int read_block(int block_number, void *buffer);
+uint32_t get_free_block_count();
 
-// 写入指定块数据
-int write_block(int block_number, const void *buffer);
 
 #endif // DISK_SPACE_MANAGER_H

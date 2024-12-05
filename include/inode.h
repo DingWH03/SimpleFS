@@ -4,19 +4,20 @@
 #include <stddef.h>
 #include <stdint.h>
 
-// 初始化inode管理器
-void inode_manager_init();
+typedef struct {
+    uint32_t size;              // 文件大小
+    uint32_t direct_blocks[12]; // 直接块指针
+    uint32_t indirect_block;    // 间接块指针
+    uint32_t double_indirect;   // 双重间接块指针
+    uint16_t permissions;       // 权限
+    uint32_t ref_count;         // 引用计数
+} Inode;
 
-// 创建一个inode
-int create_inode(uint32_t mode, uint32_t uid, uint32_t gid);
+int create_inode();
+int delete_inode(uint32_t inode_id);
 
-// 删除inode
-int delete_inode(int inode_number);
+Inode *get_inode(uint32_t inode_id);
+int update_inode(uint32_t inode_id, Inode *inode);
 
-// 获取inode信息
-int get_inode(int inode_number, void *inode_info);
-
-// 更新inode信息
-int update_inode(int inode_number, const void *inode_info);
 
 #endif // INODE_H

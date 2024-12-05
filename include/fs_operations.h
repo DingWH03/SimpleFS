@@ -2,17 +2,13 @@
 #define FS_OPERATIONS_H
 
 #include <stddef.h>
+#include <unistd.h>
+#include <cstdint>
 
-// 文件系统操作函数表
-struct fs_operations {
-    int (*open)(const char *path, int flags);
-    int (*close)(int fd);
-    ssize_t (*read)(int fd, void *buf, size_t count);
-    ssize_t (*write)(int fd, const void *buf, size_t count);
-    int (*unlink)(const char *path);
-    int (*create)(const char *path);
-};
+ssize_t fs_read(const char *path, void *buf, uint32_t size, off_t offset);
+ssize_t fs_write(const char *path, const void *buf, uint32_t size, off_t offset);
 
-extern struct fs_operations simplefs_operations;
+int fs_stat(const char *path, struct stat *buf);
+
 
 #endif // FS_OPERATIONS_H

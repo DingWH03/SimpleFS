@@ -2,17 +2,24 @@
 #define DIRECTORY_H
 
 #include <stddef.h>
+#include <cstdint>
 
-// 初始化目录模块
-void directory_init();
+typedef struct {
+    char name[256];   // 文件或目录名
+    uint32_t inode;   // 对应的索引结点编号
+} DirectoryEntry;
 
-// 创建目录
+typedef struct {
+    DirectoryEntry entries[1024]; // 一个目录最多包含的条目数
+    uint32_t entry_count;         // 当前目录的条目数
+} Directory;
+
+
 int create_directory(const char *path);
-
-// 删除目录
 int delete_directory(const char *path);
 
-// 列出目录内容
-int list_directory(const char *path, char ***contents, size_t *count);
+int add_directory_entry(Directory *dir, const char *name, uint32_t inode);
+int remove_directory_entry(Directory *dir, const char *name);
+
 
 #endif // DIRECTORY_H

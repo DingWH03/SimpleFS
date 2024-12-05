@@ -4,22 +4,13 @@
 #include <stddef.h>
 #include <sys/types.h>
 
-// 打开文件
-int fs_open(const char *path, int flags);
+int fs_init();
+int fs_mount(const char *disk_image);
+int fs_unmount();
 
-// 关闭文件
-int fs_close(int fd);
-
-// 读取文件
-ssize_t fs_read(int fd, void *buf, size_t count);
-
-// 写入文件
-ssize_t fs_write(int fd, const void *buf, size_t count);
-
-// 删除文件
-int fs_unlink(const char *path);
-
-// 创建文件
 int fs_create(const char *path);
+int fs_delete(const char *path);
+int fs_rename(const char *old_path, const char *new_path);
+
 
 #endif // FS_INTERFACE_H
